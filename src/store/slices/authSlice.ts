@@ -57,8 +57,20 @@ export const register = createAsyncThunk(
       return rejectWithValue(response.message || 'Registration failed');
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
-        const axiosErr = err as { response?: { data?: { message?: string } } };
-        return rejectWithValue(axiosErr.response?.data?.message || 'Registration failed');
+        const axiosErr = err as { response?: { data?: { message?: string; errors?: Record<string, string[]> } } };
+        const errorData = axiosErr.response?.data;
+
+        // Handle validation errors with field-specific messages
+        if (errorData?.errors && typeof errorData.errors === 'object') {
+          const fieldErrors = errorData.errors;
+          // Get the first field error to display
+          const firstField = Object.keys(fieldErrors)[0];
+          if (firstField && fieldErrors[firstField]?.[0]) {
+            return rejectWithValue(fieldErrors[firstField][0]);
+          }
+        }
+
+        return rejectWithValue(errorData?.message || 'Registration failed');
       }
       return rejectWithValue('Registration failed. Please try again.');
     }

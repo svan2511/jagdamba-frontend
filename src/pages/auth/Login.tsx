@@ -68,12 +68,15 @@ export default function Login() {
     <div className="bg-background text-on-background h-screen flex overflow-hidden antialiased">
       {/* Left Side */}
       <div className="hidden lg:flex lg:w-3/5 relative bg-surface-container">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0a?w=800')" }} />
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDt8A90uke_be8JGnw44yWFO2FMflbCT_X4RJao1m5oJjx8ux96ZK21Bvbel5SqdcN6vMbsLgCAjKydSzY7Mcd-O7-MJT3ySZSTI9AJef8ZS1zL7lneKVX7Bi3HMoZ--FyZwotsyGWqBEApMVuGOfyuqZeY6wg3V34wmmRMQR-264d7TOCXRmsWqCCRh885Y5MJCzHlRjEbY_XweqqRjvA6-01heeWronxB2fllIUZ6WJppbSzTJS7ifsVkX_WbE0Ln7NrOU8nIfAE')" }}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-surface/20 to-surface/80 mix-blend-multiply"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
         <div className="absolute bottom-[64px] left-[64px] max-w-xl z-10">
           <h1 className="font-display-lg text-[48px] text-primary mb-4">Maa Jagdamba Super Speciality</h1>
-          <p className="font-body-lg text-[18px] text-on-surface-variant opacity-90 max-w-md">Precision medicine meets premium care.</p>
+          <p className="font-body-lg text-[18px] text-on-surface-variant opacity-90 max-w-md">Join our premium healthcare platform. Create your account to access world-class medical services.</p>
         </div>
       </div>
 

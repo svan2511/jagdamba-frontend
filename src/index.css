@@ -68,6 +68,12 @@ html {
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
 
+  /* Success */
+  --color-success: #2e7d32;
+  --color-on-success: #ffffff;
+  --color-success-container: #c8e6c9;
+  --color-on-success-container: #1b5e20;
+
   --color-background: #faf9f6;
 
   /* Typography */
