@@ -238,7 +238,7 @@ export default function Homepage() {
               <p className="text-lg text-[#e6e0e9]/90 max-w-xl">{heroSlides[currentSlide].subtitle}</p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <button
-                  onClick={() => navigate('/appointment')}
+                  onClick={() => navigate('/patient/appointment')}
                   className="bg-[#765b00] text-white px-8 py-4 rounded-xl text-lg font-semibold hover:scale-[1.02] transition-all shadow-lg"
                 >
                   Book Appointment
@@ -464,7 +464,7 @@ export default function Homepage() {
                       <div className="flex justify-between items-center">
                         <span className="text-xs text-[#494551]">{doctor.experience_years}+ Yrs</span>
                         <button
-                          onClick={(e) => { e.stopPropagation(); navigate('/appointment') }}
+                          onClick={(e) => { e.stopPropagation(); navigate('/patient/appointment') }}
                           className="p-2 rounded-full bg-[#e1d4fd] text-[#645a7d] hover:bg-[#4f378a] hover:text-white transition-all"
                         >
                           <Stethoscope className="w-5 h-5" />
