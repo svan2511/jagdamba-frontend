@@ -9,3 +9,4 @@ export * from './reports';
 export * from './notifications';
 export * from './hooks';
 export * from './admin';
+export * from './contact';

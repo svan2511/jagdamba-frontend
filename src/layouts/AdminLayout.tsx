@@ -29,6 +29,7 @@ const adminLinks = [
   { to: '/admin/patients', icon: Users, label: 'Patients' },
   { to: '/admin/appointments', icon: Calendar, label: 'Appointments' },
   { to: '/admin/schedule-requests', icon: Clock, label: 'Schedule Requests' },
+  { to: '/admin/contact-queries', icon: Mail, label: 'Contact Queries' },
   { to: '/admin/gallery', icon: Image, label: 'Gallery' },
   { to: '/admin/reviews', icon: Star, label: 'Reviews' },
   { to: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
@@ -190,10 +191,10 @@ export default function AdminLayout() {
 
           <div className="flex items-center gap-4">
             {/* Quick Actions */}
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#3e5641] text-white rounded-lg text-sm font-medium hover:bg-[#2d4030] transition-colors">
+            <Link to="/admin/contact-queries" className="flex items-center gap-2 px-4 py-2 bg-[#3e5641] text-white rounded-lg text-sm font-medium hover:bg-[#2d4030] transition-colors">
               <Mail className="w-4 h-4" />
               Contact
-            </button>
+            </Link>
 
             <button className="relative p-2 hover:bg-gray-100 rounded-lg">
               <Bell className="w-5 h-5 text-gray-600" />

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Search, Bell, User, LogIn, UserPlus } from 'lucide-react'
 
 const navLinks = [
-  { name: 'Find Care', path: '/doctors' },
+  { name: 'Find Care', path: '/#doctors' },
   { name: 'Specialties', path: '/#specialties' },
   { name: 'Patients', path: '/#patients' },
   { name: 'Locations', path: '/#locations' },

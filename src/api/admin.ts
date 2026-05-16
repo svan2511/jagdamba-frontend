@@ -296,4 +296,30 @@ export const adminApi = {
     const response = await apiClient.get('/admin/schedule-requests/doctors');
     return response.data;
   },
+
+  // Contact Management
+  getContacts: async (params?: { page?: number; status?: string; search?: string }): Promise<ApiResponse<any>> => {
+    const response = await apiClient.get('/admin/contacts', { params });
+    return response.data;
+  },
+
+  getContact: async (id: number): Promise<ApiResponse<any>> => {
+    const response = await apiClient.get(`/admin/contacts/${id}`);
+    return response.data;
+  },
+
+  updateContact: async (id: number, data: { status?: string; admin_notes?: string }): Promise<ApiResponse<any>> => {
+    const response = await apiClient.put(`/admin/contacts/${id}`, data);
+    return response.data;
+  },
+
+  deleteContact: async (id: number): Promise<ApiResponse<any>> => {
+    const response = await apiClient.delete(`/admin/contacts/${id}`);
+    return response.data;
+  },
+
+  getContactStats: async (): Promise<ApiResponse<any>> => {
+    const response = await apiClient.get('/admin/contacts/stats');
+    return response.data;
+  },
 };

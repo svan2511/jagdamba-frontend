@@ -66,6 +66,7 @@ import AdminReviews from './pages/admin/Reviews'
 import AdminAnalytics from './pages/admin/Analytics'
 import AdminSettings from './pages/admin/Settings'
 import ScheduleRequests from './pages/admin/ScheduleRequests'
+import ContactQueries from './pages/admin/ContactQueries'
 import { Toaster } from 'react-hot-toast'
 
 function App() {
@@ -151,6 +152,7 @@ function App() {
             <Route path="appointments" element={<AdminAppointments />} />
             <Route path="appointments/view/:id" element={<ViewAppointment />} />
             <Route path="schedule-requests" element={<ScheduleRequests />} />
+            <Route path="contact-queries" element={<ContactQueries />} />
             <Route path="gallery" element={<AdminGallery />} />
             <Route path="reviews" element={<AdminReviews />} />
             <Route path="analytics" element={<AdminAnalytics />} />

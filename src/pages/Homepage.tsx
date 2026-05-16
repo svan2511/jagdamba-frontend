@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
   Phone,
   Bell,
@@ -119,6 +119,33 @@ export default function Homepage() {
     fetchData()
   }, [])
 
+
+   const location = useLocation();
+
+  useEffect(() => {
+  if (location.state?.scrollTo) {
+    const element = document.getElementById(
+      location.state.scrollTo
+    );
+
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+
+        // CLEAR STATE AFTER SCROLL
+        navigate(location.pathname, {
+          replace: true,
+          state: {},
+        });
+
+      }, 200);
+    }
+  }
+}, [location, navigate]);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
   }
@@ -181,7 +208,7 @@ export default function Homepage() {
 
       <main className="pt-12">
         {/* Hero Section with Slider */}
-        <section className="relative h-[700px] w-full overflow-hidden">
+        <section className="relative h-[500px] md:h-[600px] lg:h-[700px] w-full overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -200,22 +227,22 @@ export default function Homepage() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Slider Controls */}
+          {/* Slider Controls - hidden on mobile */}
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+            className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+            className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
           >
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
 
           {/* Slide Indicators */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -225,26 +252,23 @@ export default function Homepage() {
             ))}
           </div>
 
-          <div className="relative z-20 max-w-[1440px] mx-auto px-6 h-full flex flex-col justify-center">
+          <div className="relative z-20 max-w-[1440px] mx-auto px-4 md:px-6 h-full flex flex-col justify-center">
             <motion.div
               key={`content-${currentSlide}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="max-w-2xl text-white space-y-6"
+              className="max-w-2xl text-white space-y-3 md:space-y-6"
             >
-              <span className="inline-block px-4 py-2 bg-[#c9a74d] text-[#241a00] rounded-full text-sm font-semibold uppercase tracking-wider">Compassionate Care, Advanced Science</span>
-              <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">{heroSlides[currentSlide].title}</h1>
-              <p className="text-lg text-[#e6e0e9]/90 max-w-xl">{heroSlides[currentSlide].subtitle}</p>
-              <div className="flex flex-wrap gap-4 pt-4">
+              <span className="inline-block px-3 py-1 md:px-4 md:py-2 bg-[#c9a74d] text-[#241a00] rounded-full text-xs md:text-sm font-semibold uppercase tracking-wider">Compassionate Care, Advanced Science</span>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">{heroSlides[currentSlide].title}</h1>
+              <p className="text-sm md:text-lg text-white/90 max-w-xl drop-shadow-md">{heroSlides[currentSlide].subtitle}</p>
+              <div className="flex flex-wrap gap-3 md:gap-4 pt-2 md:pt-4">
                 <button
                   onClick={() => navigate('/patient/appointment')}
-                  className="bg-[#765b00] text-white px-8 py-4 rounded-xl text-lg font-semibold hover:scale-[1.02] transition-all shadow-lg"
+                  className="bg-[#765b00] text-white px-5 md:px-8 py-2 md:py-4 rounded-xl text-sm md:text-lg font-semibold hover:scale-[1.02] transition-all shadow-lg"
                 >
                   Book Appointment
-                </button>
-                <button className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/10 transition-all">
-                  View Departments
                 </button>
               </div>
             </motion.div>
@@ -342,7 +366,7 @@ export default function Homepage() {
                   </div>
                 </li>
               </ul>
-              <button className="bg-[#4f378a] text-white px-6 py-3 rounded-xl text-lg font-semibold hover:bg-[#4f378a]/90 transition-all shadow-md">
+              <button onClick={() => navigate('/about')} className="bg-[#4f378a] text-white px-6 py-3 rounded-xl text-lg font-semibold hover:bg-[#4f378a]/90 transition-all shadow-md">
                 Learn More About Us
               </button>
             </div>
@@ -390,8 +414,8 @@ export default function Homepage() {
         <section id="doctors" className="py-16 bg-[#f2ecf4]">
           <div className="max-w-[1440px] mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#4f378a] mb-4">Meet Our Leading Specialists</h2>
-              <p className="text-[#494551] max-w-2xl mx-auto">Headed by world-renowned medical professionals who bring decades of global expertise to Maa Jagdamba.</p>
+              <h2 className="text-3xl font-bold text-[#4f378a] mb-2">Meet Our Leading Specialists</h2>
+              <p className="text-[#494551] mx-auto">Headed by world-renowned medical professionals who bring decades of global expertise to Maa Jagdamba.</p>
             </div>
 
             {doctorsLoading ? (
@@ -400,44 +424,10 @@ export default function Homepage() {
                 <span className="ml-3 text-[#494551]">Loading doctors...</span>
               </div>
             ) : doctors.length === 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  { name: 'Dr. Arpita Sharma', specialty: 'Senior Cardiologist (MD, FACC)', exp: '20+ Yrs', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop' },
-                  { name: 'Dr. Vikram Mehra', specialty: 'Neurosurgeon (MS, MCh)', exp: '15+ Yrs', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop' },
-                  { name: 'Dr. Sarah Jenkins', specialty: 'Lead Oncologist (PhD, FRCP)', exp: '18+ Yrs', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop' },
-                  { name: 'Dr. Rohan Gupta', specialty: 'Orthopedic Surgeon (MS, Ortho)', exp: '22+ Yrs', image: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop' },
-                ].map((doctor, index) => (
-                  <motion.div
-                    key={doctor.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-[#fdf7ff] rounded-2xl overflow-hidden shadow-lg border border-[#cbc4d2]/30 group cursor-pointer"
-                    onClick={() => navigate('/doctors')}
-                  >
-                    <div className="aspect-square relative overflow-hidden">
-                      <img
-                        alt={doctor.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src={doctor.image}
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-[#1d1b20]">{doctor.name}</h3>
-                      <p className="text-[#4f378a] font-bold text-sm mb-4">{doctor.specialty}</p>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-[#494551]">{doctor.exp}</span>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); navigate('/patient/appointment') }}
-                          className="p-2 rounded-full bg-[#e1d4fd] text-[#645a7d] hover:bg-[#4f378a] hover:text-white transition-all"
-                        >
-                          <Stethoscope className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="text-center py-12">
+                <Stethoscope className="w-16 h-16 text-[#cbc4d2] mx-auto mb-4" />
+                <p className="text-[#494551] text-lg">No doctors available at the moment</p>
+                <p className="text-[#494551] text-sm mt-2">Please check back later or browse our departments</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -449,14 +439,20 @@ export default function Homepage() {
                     transition={{ delay: index * 0.1 }}
                     viewport={{ once: true }}
                     className="bg-[#fdf7ff] rounded-2xl overflow-hidden shadow-lg border border-[#cbc4d2]/30 group cursor-pointer"
-                    onClick={() => navigate('/doctors')}
+                    onClick={() => navigate(`/doctors/${doctor.id}`)}
                   >
-                    <div className="aspect-square relative overflow-hidden">
-                      <img
-                        alt={doctor.user?.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src={doctor.image || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop'}
-                      />
+                    <div className="aspect-square relative overflow-hidden bg-[#e9ddff] flex items-center justify-center">
+                      {doctor.image ? (
+                        <img
+                          alt={doctor.user?.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          src={doctor.image}
+                        />
+                      ) : (
+                        <span className="text-4xl font-bold text-[#4f378a]">
+                          {doctor.user?.name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'D'}
+                        </span>
+                      )}
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-semibold text-[#1d1b20]">Dr. {doctor.user?.name || 'Doctor'}</h3>
@@ -476,6 +472,17 @@ export default function Homepage() {
               </div>
             )}
           </div>
+          {/* View All Button */}
+          {!doctorsLoading && doctors.length > 0 && (
+            <div className="text-center mt-8">
+              <button
+                onClick={() => navigate('/doctors')}
+                className="px-6 py-3 bg-[#4f378a] text-white rounded-xl font-semibold hover:bg-[#4f378a]/90 transition-all shadow-md"
+              >
+                View All Doctors
+              </button>
+            </div>
+          )}
         </section>
 
         {/* Testimonials / Reviews */}

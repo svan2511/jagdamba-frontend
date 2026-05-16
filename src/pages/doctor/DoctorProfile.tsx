@@ -133,8 +133,14 @@ export default function DoctorProfile() {
         setSelectedImage(null)
         setIsEditing(false)
 
+        // Update image preview immediately with the new image
+        const newImage = response.data?.doctor?.image || response.data?.image || null
+        if (newImage) {
+          setImagePreview(newImage)
+        }
+
         // Update Redux state with new profile image
-        if (response.data?.doctor?.image) {
+        if (newImage) {
           dispatch(setUser({
             ...user,
             name: formData.name,
@@ -142,7 +148,7 @@ export default function DoctorProfile() {
             phone: formData.phone,
             doctor: {
               ...user?.doctor,
-              image: response.data.doctor.image,
+              image: newImage,
             }
           }))
         }
