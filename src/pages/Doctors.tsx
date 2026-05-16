@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
-  Search, Star, User, X, ArrowLeft,
+  Search, Star, X, ArrowLeft,
   Grid3X3, List, SlidersHorizontal, Check
 } from 'lucide-react'
 import { doctorsApi, type DoctorsResponse } from '../api/doctors'
